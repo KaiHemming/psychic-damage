@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Psychic Damage</title>
+  <style>
+    body {
+        background: radial-gradient(circle at center, #ffe66d, #ff6b6b, #f94d6a);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        font-family: "Comic Neue", cursive;
+        color: #333;
+        margin: none;
+    }
+
+    button {
+        background-color: #f94d6a;
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+
+    button:hover {
+        background-color: #ff6b6b
+    }
+  </style>
+</head>
+<body>
+  <h1>Deployed Psychic Damage</h1>
+  <button id="againBtn" disabled>Loading...</button>
+
+  <script>
+    let links = [];
+
+    fetch('links.json')
+      .then(response => response.json())
+      .then(data => {
+        links = data;
+        document.getElementById('againBtn').textContent = 'Again?';
+        document.getElementById('againBtn').disabled = false;
+        openRandomLink();
+      })
+      .catch(err => {
+        console.error('Error loading links:', err);
+        document.getElementById('againBtn').textContent = 'Error loading links', err.message;
+      });
+
+    function openRandomLink() {
+      if (links.length === 0) return;
+      const randomLink = links[Math.floor(Math.random() * links.length)];
+      window.open(randomLink, '_blank');
+    }
+
+    document.getElementById('againBtn').addEventListener('click', openRandomLink);
+  </script>
+</body>
+</html>
