@@ -56,7 +56,7 @@
     function openRandomLink() {
       if (links.length === 0) return;
       const randomLink = links[Math.floor(Math.random() * links.length)];
-      window.open(randomLink, '_blank');
+      window.open(randomLink+"&autoplay=1", '_blank');
     }
 
     document.getElementById('againBtn').addEventListener('click', openRandomLink);
